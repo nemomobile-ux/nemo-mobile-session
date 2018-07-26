@@ -30,8 +30,21 @@ Group:      Configs
 Requires:   nemo-mobile-session-common
 Requires:   qtwayland
 
+Conflicts:  nemo-mobile-session-render2d
+
 %description wayland
 %{summary}
+
+%package render2d
+Summary:   Nemo session config for device with software render
+Group:     Configs
+Requires:  nemo-mobile-session-common
+Requires:  qtdeclarative-render2d
+
+Conflicts: nemo-mobile-session-wayland
+
+%description render2d
+%{summay}
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -56,6 +69,7 @@ install -m 0644 services/init-done.service %{buildroot}/lib/systemd/system/
 install -m 0644 conf/50-nemo-mobile-ui.conf %{buildroot}/var/lib/environment/nemo/
 install -D -m 0644 conf/nemo-session-tmp.conf %{buildroot}%{_libdir}/tmpfiles.d/nemo-session-tmp.conf
 install -m 0644 conf/50-nemo-mobile-wayland.conf %{buildroot}/var/lib/environment/nemo/
+install -m 0644 conf/50-nemo-mobile-render2d.conf %{buildroot}/var/lib/environment/nemo/
 
 #udev rules
 install -m 0644 conf/01-input.rules %{buildroot}/lib/udev/rules.d/
@@ -120,5 +134,9 @@ fi
 %files wayland
 %defattr(-,root,root,-)
 %config /var/lib/environment/nemo/50-nemo-mobile-wayland.conf
+
+%files render2d
+%defattr(-,root,root,-)
+%config /var/lib/environment/nemo/50-nemo-mobile-render2d.conf
 
 
