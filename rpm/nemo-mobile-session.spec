@@ -11,12 +11,13 @@ BuildArch:  noarch
 %description
 Target for nemo systemd user session
 
-%package common 
+%package common
 Summary:    Nemo-mobile-session configs files
 Group:      Configs
 Requires:   systemd >= 187
 Requires:   systemd-user-session-targets
 Requires:   systemd-config-mer
+Requires:   maliit-plugins
 Obsoletes:  uxlaunch
 # mer release 0.20130605.1 changed login.defs
 Requires: setup >= 2.8.56
