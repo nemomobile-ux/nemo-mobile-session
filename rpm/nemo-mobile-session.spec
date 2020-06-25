@@ -110,6 +110,10 @@ if [ $1 -gt 1 ] ; then
 
   [ -f /usr/bin/ssh-agent ] && chgrp nobody %{_bindir}/ssh-agent
 
+  # Add these users for dbus like droid-hal-device does
+  /usr/sbin/useradd -r -d / -s /sbin/nologin nfc
+  /usr/sbin/useradd -r -d / -s /sbin/nologin radio
+
   # backup group and passwd
   mkdir -p %{_sharedstatedir}/misc
   [ ! -f %{_sharedstatedir}/misc/passwd.old ] && cp %{_sysconfdir}/passwd %{_sharedstatedir}/misc/passwd.old
