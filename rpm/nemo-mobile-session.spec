@@ -59,6 +59,7 @@ mkdir -p %{buildroot}/var/lib/environment/nemo
 mkdir -p %{buildroot}%{_sysconfdir}/systemd/system/
 mkdir -p %{buildroot}%{_libdir}/systemd/user/pre-user-session.target.wants/
 mkdir -p %{buildroot}/lib/udev/rules.d/
+mkdir -p %{buildroot}/etc/profile.d/
 
 # Root services
 install -D -m 0644 services/user@.service.d/nemo.conf \
@@ -79,6 +80,9 @@ install -m 0644 conf/01-fbdev.rules %{buildroot}/lib/udev/rules.d/
 
 #dbus rules
 install -m 0644 conf/glacier-user.conf %{buildroot}/etc/dbus-1/system.d/
+
+# shell environment
+install -m 0644 conf/load-nemo.sh %{buildroot}/etc/profile.d/
 
 # bin
 install -D -m 0744 bin/set-boot-state %{buildroot}%{_libdir}/startup/set-boot-state
