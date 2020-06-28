@@ -143,6 +143,7 @@ fi
 %{_libdir}/startup/init-done
 %{_sysconfdir}/systemd/system/runlevel4.target
 %{_sysconfdir}/dbus-1/system.d/glacier-user.conf
+%{_sysconfdir}/profile.d/load-nemo.sh
 
 %files wayland
 %defattr(-,root,root,-)
