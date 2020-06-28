@@ -76,7 +76,7 @@ st=$?
 if [ $st -eq 0 ]; then
     echo "New session started"
     # We are the session manager, if we exit, the session is terminated!
-    while sleep 100000d; do
+    while sleep 365d; do
         true
     done
     # loop will be terminated if 'sleep' exits abnormaly, e.g. service stopped
