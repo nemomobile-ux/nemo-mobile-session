@@ -16,12 +16,12 @@ Summary:    Nemo-mobile-session configs files
 Group:      Configs
 Requires:   systemd >= 187
 Requires:   systemd-user-session-targets
-Requires:   systemd-config-mer
+#Requires:   systemd-config-mer
 Requires:   maliit-plugins
 Obsoletes:  uxlaunch
 # mer release 0.20130605.1 changed login.defs
 Requires: setup >= 2.8.56
-Requires(post): /bin/chgrp, /usr/sbin/groupmod
+Requires(post): coreutils
 
 %description common
 %{summary}
@@ -30,7 +30,7 @@ Requires(post): /bin/chgrp, /usr/sbin/groupmod
 Summary:    Wayland configs for nemo-mobile-session
 Group:      Configs
 Requires:   nemo-mobile-session-common
-Requires:   qt5-qtwayland-wayland_egl
+Requires:   qt5-qtwayland
 
 Conflicts:  nemo-mobile-session-render2d
 
