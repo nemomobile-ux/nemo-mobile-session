@@ -7,7 +7,7 @@ After=start-user-session.service
 [Service]
 Type=oneshot
 RemainAfterExit=no
-ExecStart=/usr/lib/startup/init-done /run/systemd/boot-status/init-done
+ExecStart=/usr/bin/init-done /run/systemd/boot-status/init-done
 
 [Install]
 WantedBy=graphical.target

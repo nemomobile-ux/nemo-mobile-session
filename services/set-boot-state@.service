@@ -10,4 +10,4 @@ Before=start-user-session.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/lib/startup/set-boot-state %I
+ExecStart=/usr/bin/set-boot-state %I

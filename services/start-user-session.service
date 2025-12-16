@@ -16,7 +16,7 @@ Type=simple
 TimeoutStartSec=0
 TimeoutStopSec=2
 Environment=RESTART_FILE=/home/nemo/.restart-user
-ExecStart=/usr/lib/startup/start-user-session
+ExecStart=/usr/bin/start-user-session
 Restart=always
 RestartSec=1
 StartLimitInterval=120

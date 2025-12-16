@@ -11,7 +11,6 @@ Requires:   systemd >= 187
 Requires:   systemd-user-session-targets
 #Requires:   systemd-config-mer
 Requires:   maliit-plugins
-Obsoletes:  uxlaunch
 Requires:   setup >= 2.8.56
 Requires:   qt6-qtwayland
 Requires(post): coreutils
@@ -64,7 +63,7 @@ ln -sf ../set-boot-state@.service %{buildroot}%{_unitdir}/graphical.target.wants
 ln -sf ../start-user-session.service %{buildroot}%{_unitdir}/graphical.target.wants/start-user-session.service
 ln -sf ../init-done.service %{buildroot}%{_unitdir}/graphical.target.wants/
 # In nemo actdead is not (yet) supported. We define actdead (runlevel4) to poweroff
-ln -sf %{_unitdir}/poweroff.target %{buildroot}%{_sysconfdir}/systemd/system/runlevel4.target
+# ln -sf %{_unitdir}/poweroff.target %{buildroot}%{_sysconfdir}/systemd/system/runlevel4.target
 
 # nemo-mobile-session dependencies
 
