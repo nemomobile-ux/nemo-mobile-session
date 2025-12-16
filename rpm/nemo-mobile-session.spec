@@ -1,41 +1,23 @@
 Name:       nemo-mobile-session
 Summary:    Target for nemo systemd user session
-Version:    13
+Version:    2025.12
 Release:    0
 Group:      System/Libraries
 License:    Public Domain
-URL:        https:/github.com/nemomobile/nemo-mobile-session
+URL:        https://github.com/nemomobile/nemo-mobile-session
 Source0:    %{name}-%{version}.tar.gz
 BuildArch:  noarch
-
-%description
-Target for nemo systemd user session
-
-%package common
-Summary:    Nemo-mobile-session configs files
-Group:      Configs
 Requires:   systemd >= 187
 Requires:   systemd-user-session-targets
 #Requires:   systemd-config-mer
 Requires:   maliit-plugins
 Obsoletes:  uxlaunch
-# mer release 0.20130605.1 changed login.defs
-Requires: setup >= 2.8.56
+Requires:   setup >= 2.8.56
+Requires:   qt6-qtwayland
 Requires(post): coreutils
 
-%description common
-%{summary}
- 
-%package wayland
-Summary:    Wayland configs for nemo-mobile-session
-Group:      Configs
-Requires:   nemo-mobile-session-common
-Requires:   qt5-qtwayland
-
-Conflicts:  nemo-mobile-session-render2d
-
-%description wayland
-%{summary}
+%description
+Target for nemo systemd user session
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -114,9 +96,10 @@ if [ $1 -gt 1 ] ; then
 
 fi
 
-%files common
+%files
 %defattr(-,root,root,-)
 %config /var/lib/environment/nemo/50-nemo-mobile-ui.conf
+%config /var/lib/environment/nemo/50-nemo-mobile-wayland.conf
 %{_libdir}/tmpfiles.d/nemo-session-tmp.conf
 %{_unitdir}/graphical.target.wants/set-boot-state@USER.service
 %{_unitdir}/graphical.target.wants/start-user-session.service
@@ -134,12 +117,5 @@ fi
 %{_sysconfdir}/dbus-1/system.d/glacier-user.conf
 %{_sysconfdir}/profile.d/load-nemo.sh
 
-%files wayland
-%defattr(-,root,root,-)
-%config /var/lib/environment/nemo/50-nemo-mobile-wayland.conf
-
-%files render2d
-%defattr(-,root,root,-)
-%config /var/lib/environment/nemo/50-nemo-mobile-render2d.conf
 
 
