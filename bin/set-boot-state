@@ -1,6 +1,7 @@
 #!/bin/sh
 #
 # Copyright (c) 2014, Hedayat Vatankhah <hedayat.fwd@gmail.com>.
+# Copyright (C) 2025 Chupligin Sergey <neochapay@gmail.com>
 #
 #   Sets the current boot state in /run/systemd/boot-status (this part
 # comes from old start-user-session with the following copyright notice),
@@ -38,21 +39,17 @@
 [ -z "$1" ] && echo "Boot mode missing" && exit 1
 MODE=$1
 
-# First find out the user id we use
-DEF_UID=$(grep "^UID_MIN" /etc/login.defs |  tr -s " " | cut -d " " -f2)
-
 echo "Configuring boot state to $MODE"
 
-# Save the mode we are going to run
-echo "BOOTSTATE=$MODE" > /run/systemd/boot-status/bootstate
-rm -f /run/systemd/boot-status/USER
-rm -f /run/systemd/boot-status/ACT_DEAD
-touch /run/systemd/boot-status/$MODE
-
-if [[ $MODE == USER ]]; then
-    ln -sf /usr/lib/systemd/user/post-user-session.target \
-        /etc/systemd/user/${DEF_UID}.target
+if grep -q actdead /proc/1/cmdline; then
+    BS="ACT_DEAD"
+    SESSION_TARGET=actdead-session.target
 else
-    ln -sf /usr/lib/systemd/user/actdead-session.target \
-        /etc/systemd/user/${DEF_UID}.target
+    BS="USER"
+    SESSION_TARGET=default.target
 fi
+echo "BOOTSTATE=$MODE" > /run/systemd/boot-status/bootstate
+echo "SESSION_TARGET=$SESSION_TARGET" >> /run/systemd/boot-status/bootstate
+
+touch /run/systemd/boot-status/$BS
+echo "Initial BOOTSTATE=$BS"

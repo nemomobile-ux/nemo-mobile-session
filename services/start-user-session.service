@@ -1,5 +1,6 @@
 # Copyright (C) 2013 Jolla Oy
 # Copyright (C) 2014 Hedayat Vatankhah <hedayat.fwd@gmail.com>
+# Copyright (C) 2025 Chupligin Sergey <neochapay@gmail.com>
 #
 # Contact: Pekka Lundstrom  <pekka.lundstrom@jollamobile.com>
 #
@@ -7,7 +8,7 @@
 
 [Unit]
 Description=Default User Session
-After=systemd-user-sessions.service
+After=systemd-user-sessions.service mce.service
 
 [Service]
 User=nemo
@@ -15,10 +16,14 @@ PAMName=login
 Type=simple
 TimeoutStartSec=0
 TimeoutStopSec=2
+EnvironmentFile=-/etc/environment
 Environment=RESTART_FILE=/home/nemo/.restart-user
-ExecStart=/usr/bin/start-user-session
+ExecStart=systemctl --user start user-session.target
 Restart=always
 RestartSec=1
 StartLimitInterval=120
 StartLimitBurst=3
 StartLimitAction=reboot
+
+[Install]
+WantedBy=graphical.target actdead.target
